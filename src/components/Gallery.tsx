@@ -81,18 +81,8 @@ const allImages = [
   "/galeria/Cliente_1_73_IMG_4275.jpg",
 ];
 
-const IMAGES_PER_PAGE = 20;
-
 const Gallery = () => {
-  const [visibleCount, setVisibleCount] = useState(IMAGES_PER_PAGE);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  const visibleImages = allImages.slice(0, visibleCount);
-  const hasMore = visibleCount < allImages.length;
-
-  const loadMore = () => {
-    setVisibleCount((prev) => Math.min(prev + IMAGES_PER_PAGE, allImages.length));
-  };
 
   return (
     <section id="galeria" className="section-padding bg-black">
@@ -107,7 +97,7 @@ const Gallery = () => {
         </div>
 
         <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 mb-12">
-          {visibleImages.map((image, index) => (
+          {allImages.map((image, index) => (
             <div
               key={index}
               onClick={() => setSelectedImage(image)}
@@ -123,23 +113,17 @@ const Gallery = () => {
           ))}
         </div>
 
-        {hasMore && (
-          <div className="text-center">
-            <Button
-              onClick={loadMore}
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md"
-            >
-              Ver mais
-            </Button>
-          </div>
-        )}
-
-        {!hasMore && visibleCount > IMAGES_PER_PAGE && (
-          <p className="text-center text-white/70">
-            Você visualizou todas as {allImages.length} imagens
-          </p>
-        )}
+        <div className="text-center mt-8">
+          <Button
+            asChild
+            size="lg"
+            className="bg-accent hover:bg-accent-light text-accent-foreground shadow-lg"
+          >
+            <a href="https://wa.me/5584987083206" target="_blank" rel="noopener noreferrer">
+              Para informações de disponibilidade e preços clique aqui
+            </a>
+          </Button>
+        </div>
 
         <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
           <DialogContent className="max-w-4xl p-0 bg-black border-white/20">
