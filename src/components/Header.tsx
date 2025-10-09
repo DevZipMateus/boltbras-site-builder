@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,21 +24,6 @@ const Header = () => {
     { label: "Contato", href: "#contato", type: "anchor" },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      const headerHeight = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
-    setIsMobileMenuOpen(false);
-  };
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white ${
@@ -50,16 +33,12 @@ const Header = () => {
       <nav className="container-custom py-4 px-4 md:px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a
-            href="#inicio"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("#inicio");
-            }}
+          <Link
+            to="/"
             className="text-2xl md:text-3xl font-display font-bold text-primary hover:text-primary-light transition-colors"
           >
             Boltbras
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
@@ -73,27 +52,13 @@ const Header = () => {
                   {item.label}
                 </Link>
               ) : (
-                isHomePage ? (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(item.href);
-                    }}
-                    className="text-foreground hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={item.href}
-                    to={`/${item.href}`}
-                    className="text-foreground hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-                  >
-                    {item.label}
-                  </Link>
-                )
+                <Link
+                  key={item.href}
+                  to={`/${item.href}`}
+                  className="text-foreground hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                >
+                  {item.label}
+                </Link>
               )
             ))}
             <Button
@@ -116,7 +81,7 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden mt-4 py-4 border-t border-border animate-fade-in">
             <div className="flex flex-col gap-4">
@@ -131,28 +96,14 @@ const Header = () => {
                     {item.label}
                   </Link>
                 ) : (
-                  isHomePage ? (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        scrollToSection(item.href);
-                      }}
-                      className="text-foreground hover:text-primary font-medium transition-colors py-2"
-                    >
-                      {item.label}
-                    </a>
-                  ) : (
-                    <Link
-                      key={item.href}
-                      to={`/${item.href}`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-foreground hover:text-primary font-medium transition-colors py-2"
-                    >
-                      {item.label}
-                    </Link>
-                  )
+                  <Link
+                    key={item.href}
+                    to={`/${item.href}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-foreground hover:text-primary font-medium transition-colors py-2"
+                  >
+                    {item.label}
+                  </Link>
                 )
               ))}
               <Button
