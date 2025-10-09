@@ -20,7 +20,7 @@ const Header = () => {
     { label: "Sobre", href: "#sobre", type: "anchor" },
     { label: "Visão e valores", href: "#visao", type: "anchor" },
     { label: "Serviços", href: "#servicos", type: "anchor" },
-    { label: "Galeria", href: "#galeria", type: "anchor" },
+    { label: "Galeria", href: "/galeria", type: "link" },
     { label: "Contato", href: "#contato", type: "anchor" },
   ];
 
