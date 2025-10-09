@@ -135,7 +135,7 @@ const Gallery = () => {
                       <img
                         src={image}
                         alt={`Galeria ${title} - Imagem ${index + 1}`}
-                        className="w-full h-64 object-cover"
+                        className="w-full h-64 object-contain bg-black"
                       />
                     </CardContent>
                   </Card>
