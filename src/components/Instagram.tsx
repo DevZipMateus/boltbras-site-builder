@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 const Instagram = () => {
   // Array de URLs de posts do Instagram (substitua pelos URLs reais)
   const instagramPosts = [
-    "https://www.instagram.com/p/exemplo1/",
+    "https://www.instagram.com/p/DLpRX0wx6Mx/",
     "https://www.instagram.com/p/exemplo2/",
     "https://www.instagram.com/p/exemplo3/",
     "https://www.instagram.com/p/exemplo4/",
@@ -50,29 +50,6 @@ const Instagram = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardContent className="p-0 relative aspect-square bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900">
-                {/* Placeholder para vídeo do Instagram */}
-                <div className="w-full h-full flex flex-col items-center justify-center gap-4 p-8">
-                  <InstagramIcon className="w-16 h-16 text-pink-600 group-hover:scale-110 transition-transform" />
-                  <p className="text-center text-sm text-muted-foreground">
-                    Vídeo {index + 1}
-                  </p>
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="sm"
-                    className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
-                  >
-                    <a 
-                      href={postUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      Ver no Instagram
-                    </a>
-                  </Button>
-                </div>
-                
-                {/* Para incorporar vídeos reais do Instagram, descomente e ajuste:
                 <iframe
                   src={`${postUrl}embed/`}
                   className="w-full h-full"
@@ -82,7 +59,6 @@ const Instagram = () => {
                   allow="encrypted-media"
                   title={`Instagram post ${index + 1}`}
                 />
-                */}
               </CardContent>
             </Card>
           ))}
