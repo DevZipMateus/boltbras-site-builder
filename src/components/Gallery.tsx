@@ -116,7 +116,7 @@ const Gallery = () => {
               <img
                 src={image}
                 alt={`Produto Boltbras ${index + 1}`}
-                className="w-full h-64 object-contain bg-black group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-auto object-contain bg-black group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"
               />
             </div>
