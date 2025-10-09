@@ -106,17 +106,17 @@ const Gallery = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 mb-12">
           {visibleImages.map((image, index) => (
             <div
               key={index}
               onClick={() => setSelectedImage(image)}
-              className="cursor-pointer group rounded-lg border border-white/20 hover:border-primary transition-all hover:shadow-lg animate-fade-in bg-black flex items-center justify-center p-2"
+              className="cursor-pointer group rounded-lg border border-white/20 hover:border-primary transition-all hover:shadow-lg animate-fade-in bg-black mb-6 break-inside-avoid inline-block w-full"
             >
               <img
                 src={image}
                 alt={`Produto Boltbras ${index + 1}`}
-                className="max-w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"
               />
             </div>
