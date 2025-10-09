@@ -111,12 +111,12 @@ const Gallery = () => {
             <div
               key={index}
               onClick={() => setSelectedImage(image)}
-              className="cursor-pointer group overflow-hidden rounded-lg border border-white/20 hover:border-primary transition-all hover:shadow-lg animate-fade-in bg-black"
+              className="cursor-pointer group rounded-lg border border-white/20 hover:border-primary transition-all hover:shadow-lg animate-fade-in bg-black flex items-center justify-center p-2"
             >
               <img
                 src={image}
                 alt={`Produto Boltbras ${index + 1}`}
-                className="w-full h-auto object-contain bg-black group-hover:scale-105 transition-transform duration-300"
+                className="max-w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"
               />
             </div>
