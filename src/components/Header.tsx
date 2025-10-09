@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import logo from "@/assets/logo.jpg";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,7 +28,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-accent ${
         isScrolled ? "shadow-md" : "shadow-sm"
       }`}
     >
@@ -36,9 +37,16 @@ const Header = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="text-2xl md:text-3xl font-display font-bold text-primary hover:text-primary-light transition-colors"
+            className="flex items-center gap-3 hover:opacity-90 transition-opacity"
           >
-            Boltbras
+            <img 
+              src={logo} 
+              alt="Boltbras Logo" 
+              className="h-12 w-12 object-contain"
+            />
+            <span className="text-2xl md:text-3xl font-display font-bold text-white">
+              Boltbras
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -48,7 +56,7 @@ const Header = () => {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className="text-foreground hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  className="text-white hover:text-white/80 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
                 >
                   {item.label}
                 </Link>
@@ -56,7 +64,7 @@ const Header = () => {
                 <Link
                   key={item.href}
                   to={`/${item.href}`}
-                  className="text-foreground hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  className="text-white hover:text-white/80 font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-white after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
                 >
                   {item.label}
                 </Link>
@@ -64,7 +72,7 @@ const Header = () => {
             ))}
             <Button
               asChild
-              className="bg-accent hover:bg-accent-light text-accent-foreground"
+              className="bg-white hover:bg-white/90 text-accent"
             >
               <a href="https://wa.me/5584987083206" target="_blank" rel="noopener noreferrer">
                 Fale conosco
@@ -75,7 +83,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
+            className="lg:hidden p-2 text-white hover:text-white/80 transition-colors"
             aria-label="Menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -84,7 +92,7 @@ const Header = () => {
 
          {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 py-4 border-t border-border animate-fade-in">
+          <div className="lg:hidden mt-4 py-4 border-t border-white/20 animate-fade-in">
             <div className="flex flex-col gap-4">
               {navItems.map((item) => (
                 item.type === "link" ? (
@@ -92,7 +100,7 @@ const Header = () => {
                     key={item.href}
                     to={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-foreground hover:text-primary font-medium transition-colors py-2"
+                    className="text-white hover:text-white/80 font-medium transition-colors py-2"
                   >
                     {item.label}
                   </Link>
@@ -101,7 +109,7 @@ const Header = () => {
                     key={item.href}
                     to={`/${item.href}`}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-foreground hover:text-primary font-medium transition-colors py-2"
+                    className="text-white hover:text-white/80 font-medium transition-colors py-2"
                   >
                     {item.label}
                   </Link>
@@ -109,7 +117,7 @@ const Header = () => {
               ))}
               <Button
                 asChild
-                className="bg-accent hover:bg-accent-light text-accent-foreground w-full"
+                className="bg-white hover:bg-white/90 text-accent w-full"
               >
                 <a href="https://wa.me/5584987083206" target="_blank" rel="noopener noreferrer">
                   Fale conosco

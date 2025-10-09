@@ -7,6 +7,7 @@ import VisionMission from "@/components/VisionMission";
 import Services from "@/components/Services";
 import Instagram from "@/components/Instagram";
 import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
@@ -41,6 +42,7 @@ const Index = () => {
         <Instagram />
         <Contact />
       </main>
+      <Footer />
       <WhatsAppButton />
     </div>
   );
