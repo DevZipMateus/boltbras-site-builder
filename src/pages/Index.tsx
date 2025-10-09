@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import VisionMission from "@/components/VisionMission";
 import Services from "@/components/Services";
+import Instagram from "@/components/Instagram";
 import Contact from "@/components/Contact";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -37,6 +38,7 @@ const Index = () => {
         <About />
         <VisionMission />
         <Services />
+        <Instagram />
         <Contact />
       </main>
       <WhatsAppButton />

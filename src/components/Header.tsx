@@ -21,6 +21,7 @@ const Header = () => {
     { label: "Visão e valores", href: "#visao", type: "anchor" },
     { label: "Serviços", href: "#servicos", type: "anchor" },
     { label: "Galeria", href: "/galeria", type: "link" },
+    { label: "Instagram", href: "#instagram", type: "anchor" },
     { label: "Contato", href: "#contato", type: "anchor" },
   ];
 
