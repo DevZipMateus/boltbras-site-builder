@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,11 +18,12 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { label: "Início", href: "#inicio" },
-    { label: "Sobre", href: "#sobre" },
-    { label: "Visão e valores", href: "#visao" },
-    { label: "Serviços", href: "#servicos" },
-    { label: "Contato", href: "#contato" },
+    { label: "Início", href: "/", type: "link" },
+    { label: "Sobre", href: "#sobre", type: "anchor" },
+    { label: "Visão e valores", href: "#visao", type: "anchor" },
+    { label: "Serviços", href: "#servicos", type: "anchor" },
+    { label: "Galeria", href: "/galeria", type: "link" },
+    { label: "Contato", href: "#contato", type: "anchor" },
   ];
 
   const scrollToSection = (href: string) => {
@@ -60,17 +64,37 @@ const Header = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.href);
-                }}
-                className="text-foreground hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-              >
-                {item.label}
-              </a>
+              item.type === "link" ? (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className="text-foreground hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                isHomePage ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(item.href);
+                    }}
+                    className="text-foreground hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    to={`/${item.href}`}
+                    className="text-foreground hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:scale-x-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )
             ))}
             <Button
               asChild
@@ -97,17 +121,39 @@ const Header = () => {
           <div className="lg:hidden mt-4 py-4 border-t border-border animate-fade-in">
             <div className="flex flex-col gap-4">
               {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(item.href);
-                  }}
-                  className="text-foreground hover:text-primary font-medium transition-colors py-2"
-                >
-                  {item.label}
-                </a>
+                item.type === "link" ? (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-foreground hover:text-primary font-medium transition-colors py-2"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  isHomePage ? (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToSection(item.href);
+                      }}
+                      className="text-foreground hover:text-primary font-medium transition-colors py-2"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.href}
+                      to={`/${item.href}`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-foreground hover:text-primary font-medium transition-colors py-2"
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                )
               ))}
               <Button
                 asChild

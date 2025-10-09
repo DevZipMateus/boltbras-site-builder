@@ -1,18 +1,12 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Autoplay from "embla-carousel-autoplay";
+import Header from "@/components/Header";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const allImages = [
   "/galeria/Cliente_1_1_Serrote.png",
@@ -90,88 +84,79 @@ const allImages = [
   "/galeria/Cliente_1_73_IMG_4275.jpg",
 ];
 
-// Dividir imagens em 3 grupos
-const imagesPerCarousel = Math.ceil(allImages.length / 3);
-const carousel1Images = allImages.slice(0, imagesPerCarousel);
-const carousel2Images = allImages.slice(imagesPerCarousel, imagesPerCarousel * 2);
-const carousel3Images = allImages.slice(imagesPerCarousel * 2);
+const IMAGES_PER_PAGE = 20;
 
-const GalleryCarousel = ({ images, title }: { images: string[]; title: string }) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+const Gallery = () => {
+  const [visibleCount, setVisibleCount] = useState(IMAGES_PER_PAGE);
+
+  const visibleImages = allImages.slice(0, visibleCount);
+  const hasMore = visibleCount < allImages.length;
+
+  const loadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + IMAGES_PER_PAGE, allImages.length));
+  };
 
   return (
-    <div className="w-full">
-      <h3 className="text-2xl font-display font-bold text-foreground mb-6">{title}</h3>
-      <Carousel
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        plugins={[
-          Autoplay({
-            delay: 3000,
-            stopOnInteraction: false,
-            stopOnMouseEnter: false,
-          }),
-        ]}
-        className="w-full"
-      >
-        <CarouselContent>
-          {images.map((image, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              <div className="p-1">
-                <Dialog>
+    <div className="min-h-screen">
+      <Header />
+      <main className="pt-20">
+        <section className="section-padding">
+          <div className="container-custom">
+            <div className="text-center mb-12 animate-fade-in">
+              <h1 className="text-5xl font-display font-bold text-foreground mb-4">
+                Galeria Boltbras
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Conheça nossos produtos, equipamentos e soluções em ação
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+              {visibleImages.map((image, index) => (
+                <Dialog key={index}>
                   <DialogTrigger asChild>
-                    <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-                      <CardContent className="p-0">
-                        <img
-                          src={image}
-                          alt={`Galeria Boltbras ${index + 1}`}
-                          className="w-full h-64 object-cover rounded-lg"
-                          loading="lazy"
-                        />
-                      </CardContent>
-                    </Card>
+                    <div className="cursor-pointer group overflow-hidden rounded-lg border border-border hover:border-primary transition-all hover:shadow-lg animate-fade-in">
+                      <img
+                        src={image}
+                        alt={`Produto Boltbras ${index + 1}`}
+                        className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
                   </DialogTrigger>
-                  <DialogContent className="max-w-4xl w-full">
+                  <DialogContent className="max-w-5xl w-full p-0">
                     <img
                       src={image}
-                      alt={`Galeria Boltbras ${index + 1}`}
-                      className="w-full h-auto"
+                      alt={`Produto Boltbras ${index + 1}`}
+                      className="w-full h-auto rounded-lg"
                     />
                   </DialogContent>
                 </Dialog>
+              ))}
+            </div>
+
+            {hasMore && (
+              <div className="text-center">
+                <Button
+                  onClick={loadMore}
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md"
+                >
+                  Ver mais
+                </Button>
               </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+            )}
+
+            {!hasMore && visibleCount > IMAGES_PER_PAGE && (
+              <p className="text-center text-muted-foreground">
+                Você visualizou todas as {allImages.length} imagens
+              </p>
+            )}
+          </div>
+        </section>
+      </main>
+      <WhatsAppButton />
     </div>
-  );
-};
-
-const Gallery = () => {
-  return (
-    <section id="galeria" className="section-padding bg-muted/30">
-      <div className="container-custom">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-4xl font-display font-bold text-foreground mb-4">
-            Nossa galeria
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Conheça nossos produtos e soluções em ação
-          </p>
-        </div>
-
-        <div className="space-y-12">
-          <GalleryCarousel images={carousel1Images} title="Ferramentas e equipamentos" />
-          <GalleryCarousel images={carousel2Images} title="Fixadores e materiais" />
-          <GalleryCarousel images={carousel3Images} title="Soluções industriais" />
-        </div>
-      </div>
-    </section>
   );
 };
 
