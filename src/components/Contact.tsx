@@ -1,8 +1,61 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Phone, Mail, MapPin, Clock, Instagram } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const Contact = () => {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [mensagem, setMensagem] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!nome || !email || !mensagem) {
+      toast({
+        title: "Erro",
+        description: "Todos os campos são obrigatórios.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: { nome, email, mensagem }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Sucesso!",
+        description: "Sua mensagem foi enviada com sucesso. Entraremos em contato em breve.",
+      });
+
+      // Limpar formulário
+      setNome("");
+      setEmail("");
+      setMensagem("");
+    } catch (error: any) {
+      console.error("Erro ao enviar email:", error);
+      toast({
+        title: "Erro ao enviar",
+        description: "Não foi possível enviar sua mensagem. Tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const contactInfo = [
     {
       icon: Phone,
@@ -43,6 +96,58 @@ const Contact = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {/* Contact Form */}
+          <Card className="p-8 border-none bg-card">
+            <h3 className="font-display text-2xl mb-6 text-card-foreground">
+              Envie sua mensagem
+            </h3>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="nome">Nome *</Label>
+                <Input
+                  id="nome"
+                  type="text"
+                  placeholder="Seu nome"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  required
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email *</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="seu@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="mensagem">Mensagem *</Label>
+                <Textarea
+                  id="mensagem"
+                  placeholder="Descreva seu projeto ou dúvida..."
+                  value={mensagem}
+                  onChange={(e) => setMensagem(e.target.value)}
+                  required
+                  disabled={isLoading}
+                  rows={5}
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isLoading}
+              >
+                {isLoading ? "Enviando..." : "Enviar Mensagem"}
+              </Button>
+            </form>
+          </Card>
+
           {/* Contact Info */}
           <div className="space-y-6">
             {contactInfo.map((info, index) => {
@@ -82,31 +187,31 @@ const Contact = () => {
                 <div key={index}>{content}</div>
               );
             })}
-          </div>
 
-          {/* CTA Card */}
-          <Card className="p-8 md:p-12 border-none gradient-accent text-accent-foreground animate-fade-in flex flex-col justify-center">
-            <h3 className="font-display text-2xl mb-6">
-              Solicite um orçamento
-            </h3>
-            <p className="mb-8 leading-relaxed opacity-95">
-              Entre em contato conosco pelo WhatsApp e receba um atendimento personalizado. Nossa equipe está pronta para entender suas necessidades e oferecer as melhores soluções.
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-white text-accent hover:bg-white/90 font-semibold w-full sm:w-auto"
-            >
-              <a
-                href="https://wa.me/5584987083206"
-                target="_blank"
-                rel="noopener noreferrer"
+            {/* WhatsApp CTA Card */}
+            <Card className="p-8 border-none gradient-accent text-accent-foreground animate-fade-in flex flex-col justify-center">
+              <h3 className="font-display text-2xl mb-6">
+                Solicite um orçamento
+              </h3>
+              <p className="mb-8 leading-relaxed opacity-95">
+                Entre em contato conosco pelo WhatsApp e receba um atendimento personalizado. Nossa equipe está pronta para entender suas necessidades e oferecer as melhores soluções.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-accent hover:bg-white/90 font-semibold w-full sm:w-auto"
               >
-                <Phone className="mr-2" />
-                Falar no WhatsApp
-              </a>
-            </Button>
-          </Card>
+                <a
+                  href="https://wa.me/5584987083206"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Phone className="mr-2" />
+                  Falar no WhatsApp
+                </a>
+              </Button>
+            </Card>
+          </div>
         </div>
 
         {/* Social Media */}
