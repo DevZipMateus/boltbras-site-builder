@@ -11,10 +11,8 @@ import GalleryCTA from "@/components/GalleryCTA";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-
 const Index = () => {
   const location = useLocation();
-
   useEffect(() => {
     if (location.hash) {
       setTimeout(() => {
@@ -23,7 +21,6 @@ const Index = () => {
           const headerHeight = 80;
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
-          
           window.scrollTo({
             top: offsetPosition,
             behavior: "smooth"
@@ -32,24 +29,20 @@ const Index = () => {
       }, 100);
     }
   }, [location]);
-
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       <Header />
       <main>
         <Hero />
         <About />
         <VisionMission />
         <Services />
-        <TaxReformCarousel />
+        
         <Instagram />
         <GalleryCTA />
         <Contact />
       </main>
       <Footer />
       <WhatsAppButton />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
