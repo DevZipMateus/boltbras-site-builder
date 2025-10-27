@@ -18,7 +18,7 @@ const InstagramEmbed = ({ url, embedHtml }: InstagramEmbedProps) => {
   return (
     <div 
       ref={containerRef}
-      className="instagram-embed-container flex justify-center"
+      className="instagram-embed-container flex justify-center h-[600px] overflow-hidden"
       dangerouslySetInnerHTML={{ __html: embedHtml }}
     />
   );
