@@ -1,5 +1,6 @@
 import logo from "@/assets/logo.png";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   return (
@@ -62,8 +63,19 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/20 pt-6 text-center text-white/70 text-sm">
-          <p>&copy; {new Date().getFullYear()} Boltbras. Todos os direitos reservados.</p>
+        <div className="border-t border-white/20 pt-6">
+          <div className="flex flex-col items-center gap-4">
+            <Button 
+              asChild 
+              variant="outline" 
+              className="bg-white/10 text-white border-white/20 hover:bg-white/20"
+            >
+              <a href="https://webmail-seguro.com.br/boltbras.com" target="_blank" rel="noopener noreferrer">
+                Webmail
+              </a>
+            </Button>
+            <p className="text-white/70 text-sm">&copy; {new Date().getFullYear()} Boltbras. Todos os direitos reservados.</p>
+          </div>
         </div>
       </div>
     </footer>
