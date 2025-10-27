@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import VisionMission from "@/components/VisionMission";
 import Services from "@/components/Services";
+import TaxReformCarousel from "@/components/TaxReformCarousel";
 import Instagram from "@/components/Instagram";
 import GalleryCTA from "@/components/GalleryCTA";
 import Contact from "@/components/Contact";
@@ -40,6 +41,7 @@ const Index = () => {
         <About />
         <VisionMission />
         <Services />
+        <TaxReformCarousel />
         <Instagram />
         <GalleryCTA />
         <Contact />
