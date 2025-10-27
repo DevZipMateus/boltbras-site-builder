@@ -26,15 +26,6 @@ const slides = [
   { id: 9, src: "/tax-reform/slide-9.png", alt: "Split Payment - Slide 9" },
   { id: 10, src: "/tax-reform/slide-10.png", alt: "Split Payment - Slide 10" },
   { id: 11, src: "/tax-reform/slide-11.png", alt: "Split Payment - Slide 11" },
-  { id: 12, src: "/tax-reform/slide-12.png", alt: "Split Payment - Slide 12" },
-  { id: 13, src: "/tax-reform/slide-13.png", alt: "Split Payment - Slide 13" },
-  { id: 14, src: "/tax-reform/slide-14.png", alt: "Split Payment - Slide 14" },
-  { id: 15, src: "/tax-reform/slide-15.png", alt: "Split Payment - Slide 15" },
-  { id: 16, src: "/tax-reform/slide-16.png", alt: "Split Payment - Slide 16" },
-  { id: 17, src: "/tax-reform/slide-17.png", alt: "Split Payment - Slide 17" },
-  { id: 18, src: "/tax-reform/slide-18.png", alt: "Split Payment - Slide 18" },
-  { id: 19, src: "/tax-reform/slide-19.png", alt: "Split Payment - Slide 19" },
-  { id: 20, src: "/tax-reform/slide-20.png", alt: "Split Payment - Slide 20" },
 ];
 
 const TaxReformCarousel = () => {
