@@ -13,8 +13,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: "E-mail",
-      value: "evertonferreiradelima@gmail.com",
-      href: "mailto:evertonferreiradelima@gmail.com",
+      value: "contato@boltbras.com",
+      href: "mailto:contato@boltbras.com",
     },
     {
       icon: MapPin,
